@@ -11,20 +11,25 @@ const github = require('@actions/github');
 const { exec,execSync } = require('child_process');
 const initbash = `sudo curl -L https://github.com/joereynolds/sql-lint/releases/latest/download/sql-lint-linux -o  /usr/local/bin/sql-lint &&
 sudo chmod +x /usr/local/bin/sql-lint &&
-sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose`
+sudo ln -s /usr/local/bin/sql-lint /usr/bin/sql-lint`
 				
 try {
   const path = core.getInput('path');
-	execSync(initbash, (err, stdout, stderr) => {
-		if (err) {
-			core.setFailed(err.message);
-  }
+	if (fs.existsSync('/etc/file')) {
+    console.log('Found ');
+	}
+	else{
+		execSync(initbash, (err, stdout, stderr) => {
+			if (err) {
+				core.setFailed(err.message);
+		}
+	}
 		console.log(`stdout: ${stdout}`);
 		if (stderr){
 			core.setFailed(`stderr: ${stderr}`);
 		}
 	});
-	const runbash = `sql-lint --help`
+	const runbash = `sql-lint ${path}`
 	exec(runbash, (err, stdout, stderr) => {
 		if (err) {
 			core.setFailed(err.message);
