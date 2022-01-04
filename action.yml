@@ -1,5 +1,5 @@
 name: 'Sql-Lint'
-description: 'Use sql-lint to check file'
+description: 'Use sql-lint to check sql file'
 inputs:
   path: 
     description: 'The path of sql file located'
