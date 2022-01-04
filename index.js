@@ -9,7 +9,7 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
 const { exec,execSync } = require('child_process');
-const initbash = `sudo curl https://github.com/joereynolds/sql-lint/releases/latest/download/sql-lint-linux -o  /usr/local/bin/sql-lint &&
+const initbash = `sudo curl -L https://github.com/joereynolds/sql-lint/releases/latest/download/sql-lint-linux -o  /usr/local/bin/sql-lint &&
 sudo chmod +x /usr/local/bin/sql-lint &&
 sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose`
 				
@@ -25,7 +25,7 @@ try {
 		}
 	});
 	const runbash = `sql-lint --help`
-	exec(runbash,{shell:'/bin/bash'}, (err, stdout, stderr) => {
+	exec(runbash, (err, stdout, stderr) => {
 		if (err) {
 			core.setFailed(err.message);
   }
