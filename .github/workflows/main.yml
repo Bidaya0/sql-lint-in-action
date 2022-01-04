@@ -1,0 +1,17 @@
+on: [push]
+
+jobs:
+  hello_world_job:
+    runs-on: ubuntu-latest
+    name: A job to test itself
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Test Sql-lint action_1
+        uses: ./test/ 
+        with:
+          path: '.'
+      - name: Test Sql-lint action_2
+        uses: ./test/ 
+        with:
+          path: 'test.sql'
