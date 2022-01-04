@@ -19,6 +19,8 @@ This action provides the use of sql-lint in github action to check your .sql scr
 
 ## Example usage
 
+```
 uses: Bidaya0/sql-lint-in-action@v0.0.1
 with:
   path: '.'
+```
