@@ -7,11 +7,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Test Sql-lint action_1
-        uses: ./
-        with:
-          path: './test/'
-      - name: Test Sql-lint action_2
+      - name: Test Sql-lint action with no error sql
         uses: ./
         with:
           path: './test/test.sql'
+      - name: Test Sql-lint action with sql detect error
+        uses: ./
+        continue-on-error: true
+        with:
+          path: './test/test1.sql'
