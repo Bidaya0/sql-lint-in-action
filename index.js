@@ -25,7 +25,7 @@ try {
 		}
 	});
 	const runbash = `sql-lint --help`
-	exec(runbash, (err, stdout, stderr) => {
+	exec(runbash,{shell:'/bin/bash'}, (err, stdout, stderr) => {
 		if (err) {
 			core.setFailed(err.message);
   }
