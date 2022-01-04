@@ -24,7 +24,7 @@ try {
 			core.setFailed(`stderr: ${stderr}`);
 		}
 	});
-	const runbash = `sqllint ${path}`
+	const runbash = `sql-lint ${path}`
 	exec(runbash, (err, stdout, stderr) => {
 		if (err) {
 			core.setFailed(err.message);
