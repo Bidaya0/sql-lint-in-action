@@ -8442,47 +8442,14 @@ module.exports = JSON.parse('[[[0,44],"disallowed_STD3_valid"],[[45,46],"valid"]
 /******/ 	}
 /******/ 	
 /************************************************************************/
-/******/ 	/* webpack/runtime/define property getters */
-/******/ 	(() => {
-/******/ 		// define getter functions for harmony exports
-/******/ 		__nccwpck_require__.d = (exports, definition) => {
-/******/ 			for(var key in definition) {
-/******/ 				if(__nccwpck_require__.o(definition, key) && !__nccwpck_require__.o(exports, key)) {
-/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
-/******/ 				}
-/******/ 			}
-/******/ 		};
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
-/******/ 	(() => {
-/******/ 		__nccwpck_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/make namespace object */
-/******/ 	(() => {
-/******/ 		// define __esModule on exports
-/******/ 		__nccwpck_require__.r = (exports) => {
-/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 			}
-/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 		};
-/******/ 	})();
-/******/ 	
 /******/ 	/* webpack/runtime/compat */
 /******/ 	
 /******/ 	if (typeof __nccwpck_require__ !== 'undefined') __nccwpck_require__.ab = __dirname + "/";
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be in strict mode.
+// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
 (() => {
-"use strict";
-__nccwpck_require__.r(__webpack_exports__);
-/* harmony export */ __nccwpck_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ index)
-/* harmony export */ });
 /**
  * @class       : index
  * @author      : bidaya0 (bidaya0@00-1E-10-1F-00-00)
@@ -8490,31 +8457,43 @@ __nccwpck_require__.r(__webpack_exports__);
  * @description : index
  */
 
-class index {
-}
 
 const core = __nccwpck_require__(8481);
 const github = __nccwpck_require__(841);
-const { exec } = __nccwpck_require__(2081);
-const initbash = `curl https://github.com/joereynolds/sql-lint/releases/latest/download/sql-lint-linux -o  /usr/local/bin/sql-lint &&
-chmod +x /usr/local/bin/sql-lint &&
-ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose`
+const { exec,execSync } = __nccwpck_require__(2081);
+const { existsSync } = __nccwpck_require__(7147);
+const initbash = `sudo curl -L https://github.com/joereynolds/sql-lint/releases/latest/download/sql-lint-linux -o  /usr/local/bin/sql-lint &&
+sudo chmod +x /usr/local/bin/sql-lint &&
+sudo ln -s /usr/local/bin/sql-lint /usr/bin/sql-lint`
 				
 try {
-  const nameToGreet = core.getInput('path');
-	exec(initbash, (err, stdout, stderr) => {
+  const path = core.getInput('path');
+	if (existsSync('/usr/local/bin/sql-lint')) {
+    console.log('Found ');
+	}
+	else{
+		execSync(initbash, (err, stdout, stderr) => {
+				if (err) {
+					core.setFailed(err.message);
+				}
+			console.log(`stdout: ${stdout}`);
+			if (stderr){
+				core.setFailed(`stderr: ${stderr}`);
+			}
+		});
+	}
+	const runbash = `sql-lint ${path}`
+	exec(runbash, (err, stdout, stderr) => {
 		if (err) {
-			return;
+			core.setFailed(err.message);
   }
 
 		console.log(`stdout: ${stdout}`);
-		console.log(`stderr: ${stderr}`);
+		if (stderr){
+			core.setFailed(`stderr: ${stderr}`);
+		}
 	});
-	const runbash = `sqllint ${path}`
-  core.setOutput("time", time);
   // Get the JSON webhook payload for the event that triggered the workflow
-  const payload = JSON.stringify(github.context.payload, undefined, 2)
-  console.log(`The event payload: ${payload}`);
 } catch (error) {
   core.setFailed(error.message);
 }
