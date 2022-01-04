@@ -1,0 +1,13 @@
+name: 'Sql-Lint'
+description: 'Use sql-lint to check file'
+inputs:
+  path: 
+    description: 'The path of sql file located'
+    required: true
+    default: '.'
+outputs:
+  res: 
+    description: 'The result of sql-lint'
+runs:
+  using: 'node12'
+  main: 'index.js'
