@@ -9,13 +9,14 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
 const { exec,execSync } = require('child_process');
+import { existsSync } from 'fs';
 const initbash = `sudo curl -L https://github.com/joereynolds/sql-lint/releases/latest/download/sql-lint-linux -o  /usr/local/bin/sql-lint &&
 sudo chmod +x /usr/local/bin/sql-lint &&
 sudo ln -s /usr/local/bin/sql-lint /usr/bin/sql-lint`
 				
 try {
   const path = core.getInput('path');
-	if (fs.existsSync('/etc/file')) {
+	if (existsSync('/usr/local/bin/sql-lint')) {
     console.log('Found ');
 	}
 	else{
