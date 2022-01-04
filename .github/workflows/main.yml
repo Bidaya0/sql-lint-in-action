@@ -8,10 +8,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Test Sql-lint action_1
-        uses: ./test/ 
         with:
-          path: '.'
+          path: './test/'
       - name: Test Sql-lint action_2
-        uses: ./test/ 
         with:
-          path: 'test.sql'
+          path: './test/test.sql'
