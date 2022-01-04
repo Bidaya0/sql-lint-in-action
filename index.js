@@ -17,13 +17,24 @@ try {
   const path = core.getInput('path');
 	exec(initbash, (err, stdout, stderr) => {
 		if (err) {
-			return;
+			core.setFailed(err.message);
+  }
+		console.log(`stdout: ${stdout}`);
+		if (stderr){
+			core.setFailed(`stderr: ${stderr}`);
+		}
+	});
+	const runbash = `sqllint ${path}`
+	exec(runbash, (err, stdout, stderr) => {
+		if (err) {
+			core.setFailed(err.message);
   }
 
 		console.log(`stdout: ${stdout}`);
-		console.log(`stderr: ${stderr}`);
+		if (stderr){
+			core.setFailed(`stderr: ${stderr}`);
+		}
 	});
-	const runbash = `sqllint ${path}`
   // Get the JSON webhook payload for the event that triggered the workflow
 } catch (error) {
   core.setFailed(error.message);
