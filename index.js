@@ -20,16 +20,15 @@ try {
 	}
 	else{
 		execSync(initbash, (err, stdout, stderr) => {
-			if (err) {
-				core.setFailed(err.message);
+				if (err) {
+					core.setFailed(err.message);
+				}
+			console.log(`stdout: ${stdout}`);
+			if (stderr){
+				core.setFailed(`stderr: ${stderr}`);
 			}
-		}
+		});
 	}
-		console.log(`stdout: ${stdout}`);
-		if (stderr){
-			core.setFailed(`stderr: ${stderr}`);
-		}
-	});
 	const runbash = `sql-lint ${path}`
 	exec(runbash, (err, stdout, stderr) => {
 		if (err) {
