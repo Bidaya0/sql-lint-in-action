@@ -22,6 +22,7 @@ try {
 		execSync(initbash, (err, stdout, stderr) => {
 			if (err) {
 				core.setFailed(err.message);
+			}
 		}
 	}
 		console.log(`stdout: ${stdout}`);
