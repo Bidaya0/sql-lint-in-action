@@ -15,7 +15,7 @@ sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose`
 				
 try {
   const path = core.getInput('path');
-	exec(initbash, (err, stdout, stderr) => {
+	execSync(initbash, (err, stdout, stderr) => {
 		if (err) {
 			core.setFailed(err.message);
   }
