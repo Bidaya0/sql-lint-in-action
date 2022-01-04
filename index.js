@@ -14,7 +14,7 @@ chmod +x /usr/local/bin/sql-lint &&
 ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose`
 				
 try {
-  const nameToGreet = core.getInput('path');
+  const path = core.getInput('path');
 	exec(initbash, (err, stdout, stderr) => {
 		if (err) {
 			return;
