@@ -1,0 +1,1 @@
+# sql-lint-in-action
