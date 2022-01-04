@@ -8,7 +8,7 @@
 
 const core = require('@actions/core');
 const github = require('@actions/github');
-const { exec } = require('child_process');
+const { exec,execSync } = require('child_process');
 const initbash = `sudo curl https://github.com/joereynolds/sql-lint/releases/latest/download/sql-lint-linux -o  /usr/local/bin/sql-lint &&
 sudo chmod +x /usr/local/bin/sql-lint &&
 sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose`
