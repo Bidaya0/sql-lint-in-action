@@ -5,7 +5,7 @@ jobs:
     runs-on: ubuntu-latest
     services:
       mysql:
-        image: dongtai/dongtai-mysql:latest
+        image: mysql:latest
         ports:
           - 3306:3306
         options: >-
