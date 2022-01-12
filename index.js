@@ -47,7 +47,7 @@ try {
 	}
 	const runbash = `sql-lint ${path}`
 	if (use_database === true){
-		conse runbash = `sql-lint ${path} --config=/tmp/config.json`
+		const runbash = `sql-lint ${path} --config=/tmp/config.json`
 	}
 	exec(runbash, (err, stdout, stderr) => {
 		if (err) {
