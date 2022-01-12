@@ -16,9 +16,9 @@ sudo ln -s /usr/local/bin/sql-lint /usr/bin/sql-lint`
 
 function initconfig(host,user,password,driver='mysql',port=3306,ignore_errors=[]){
 		if (host==''){
-		config_data = {'host':host,'user':user,'password':password,'driver':driver,'port':int(port),'ignore-errors':ignore_errors}
+		config_data = {'host':host,'user':user,'password':password,'driver':driver,'port':parseInt(port),'ignore-errors':ignore_errors}
 		}else{
-		config_data = {'driver':driver,'port':int(port),'ignore-errors':ignore_errors}
+		config_data = {'driver':driver,'port':parseInt(port),'ignore-errors':ignore_errors}
 		}
 		console.log(config_data)
 		writeFileSync('/tmp/config.json',JSON.stringify(config_data),{flag: 'w',overwrite:true})
