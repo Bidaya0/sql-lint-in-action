@@ -16,7 +16,7 @@ sudo ln -s /usr/local/bin/sql-lint /usr/bin/sql-lint`
 
 function initconfig(host,user,password,driver='mysql',port=3306,ignore_errors=[]){
 		config_data = {'host':host,'user':user,'password':password,'driver':driver,'port':port,'ignore_errors':ignore_errors}
-		writeFileSync('/tmp/sql-lint/config.json',JSON.stringify(config_data))
+		writeFileSync('/tmp/config.json',JSON.stringify(config_data),{flag: 'wx',overwrite:true})
 }
 
 try {
@@ -45,7 +45,12 @@ try {
 		const ignore_errors = core.getInput('ignore_errors',{required:false}).split(',').filter((x)=>(x!=''))
 		initconfig(host,user,password,driver,port,ignore_errors)
 	}
-	const runbash = `sql-lint ${path}`
+	if (use_database === true){
+		const runbash = `sql-lint ${path} --config=/tmp/config.json`
+	}
+	else{
+		const runbash = `sql-lint ${path}`
+	}
 	exec(runbash, (err, stdout, stderr) => {
 		if (err) {
 			core.setFailed(err.message);
