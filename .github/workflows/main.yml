@@ -30,9 +30,9 @@ jobs:
           path: './test/test1.sql'
       - name: Test Sql-lint action with sql detect error
         uses: ./
+        continue-on-error: true
         with:
           path: './test/test.sql'
-          use_database: true
           host: 'localhost'
           password: 'password'
           user: 'root'
@@ -40,8 +40,4 @@ jobs:
         uses: ./
         with:
           path: './test/test1.sql'
-          use_database: true
-          host: 'localhost'
-          user: 'root'
-          password: 'password'
           ignore_errors: 'missing-where'
