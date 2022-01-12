@@ -19,7 +19,12 @@ function initconfig(host,user,password,driver='mysql',port=3306,ignore_errors=[]
 		console.log(config_data)
 		writeFileSync('/tmp/config.json',JSON.stringify(config_data),{flag: 'w',overwrite:true})
 }
-
+function get_runbash(path,use_database){
+	if (use_database == true){
+		return `sql-lint ${path} --config=/tmp/config.json`
+	}
+	return `sql-lint ${path}`
+}
 try {
   const path = core.getInput('path');
 	if (existsSync('/usr/local/bin/sql-lint')) {
@@ -46,10 +51,7 @@ try {
 		const ignore_errors = core.getInput('ignore_errors',{required:false}).split(',').filter((x)=>(x!=''))
 		initconfig(host,user,password,driver,port,ignore_errors)
 	}
-	let runbash = `sql-lint ${path}`
-	if (use_database == true){
-		let runbash = `sql-lint ${path} --config=/tmp/config.json`
-	}
+	const runbash = get_runbash(path,use_database)
 	exec(runbash, (err, stdout, stderr) => {
 		if (err) {
 			core.setFailed(err.message);
