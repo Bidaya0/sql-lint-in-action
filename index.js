@@ -46,10 +46,10 @@ try {
 		initconfig(host,user,password,driver,port,ignore_errors)
 	}
 	if (use_database === true){
-		const runbash = `sql-lint ${path} --config=/tmp/config.json`
+		let runbash = `sql-lint ${path} --config=/tmp/config.json`
 	}
 	else{
-		const runbash = `sql-lint ${path}`
+		let runbash = `sql-lint ${path}`
 	}
 	exec(runbash, (err, stdout, stderr) => {
 		if (err) {
