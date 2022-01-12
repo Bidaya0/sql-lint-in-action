@@ -39,7 +39,7 @@ jobs:
       - name: Test Sql-lint action with sql detect error
         uses: ./
         with:
-          path: './test/testi1.sql'
+          path: './test/test1.sql'
           use_database: true
           host: 'localhost'
           user: 'root'
