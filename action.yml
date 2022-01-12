@@ -5,6 +5,34 @@ inputs:
     description: 'The path of sql file located'
     required: true
     default: '.'
+  use_database:
+    description: 'The choose to use sql database explain to get external lint'
+    required: false
+    default: false
+  host: 
+    description: 'The host of sql host'
+    required: false
+    default: 'localhost'
+  user: 
+    description: 'The user of sql database'
+    required: false
+    default: ''
+  password: 
+    description: 'The password of sql database'
+    required: false
+    default: ''
+  driver: 
+    description: 'The driver of sql database'
+    required: false
+    default: 'mysql'
+  port: 
+    description: 'The port of sql database'
+    required: false
+    default: 3306
+  ignore_errors: 
+    description: 'The errors will be ignore'
+    required: false
+    default: ''
 runs:
   using: 'node12'
   main: 'index.js'

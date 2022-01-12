@@ -8465,7 +8465,12 @@ const { existsSync } = __nccwpck_require__(7147);
 const initbash = `sudo curl -L https://github.com/joereynolds/sql-lint/releases/latest/download/sql-lint-linux -o  /usr/local/bin/sql-lint &&
 sudo chmod +x /usr/local/bin/sql-lint &&
 sudo ln -s /usr/local/bin/sql-lint /usr/bin/sql-lint`
-				
+
+function initconfig(host,user,password,driver='mysql',port=3306,ignore_errors=[]){
+		config_data = {'host':host,'user':user,'password':password,'driver':driver,'port':port,'ignore_errors':ignore_errors}
+		fs.writeFileSync('/tmp/sql-lint/config.json',JSON.stringify(config_data))
+}
+
 try {
   const path = core.getInput('path');
 	if (existsSync('/usr/local/bin/sql-lint')) {
@@ -8482,6 +8487,16 @@ try {
 			}
 		});
 	}
+	const use_database = core.getBooleanInput('use_database', { required: false})
+	if (use_database === true){
+		const host = core.getInput('host', { required: false})
+		const user = core.getInput('user',{required: false})
+		const password = core.getInput('password',{required:false})
+		const driver = core.getInput('driver',{required:false})
+		const port = core.getInput('port',{required:false})
+		const ignore_errors = core.getInput('ignore_errors',{required:false}).filter((x)=>(x!=''))
+		initconfig(host,user,password,driver,port,ignore_errors)
+	}
 	const runbash = `sql-lint ${path}`
 	exec(runbash, (err, stdout, stderr) => {
 		if (err) {
@@ -8497,18 +8512,6 @@ try {
 } catch (error) {
   core.setFailed(error.message);
 }
-//function() {
-//				exec(initbash, (err, stdout, stderr) => {
-//					if (err) {
-//						// node couldn't execute the command
-//						return;
-//					}
-//
-//					// the *entire* stdout and stderr (buffered)
-//					console.log(`stdout: ${stdout}`);
-//					console.log(`stderr: ${stderr}`);
-//				})
-//}
 
 })();
 
