@@ -3,6 +3,16 @@ on: [push]
 jobs:
   hello_world_job:
     runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: dongtai/dongtai-mysql:latest
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd "mysqladmin ping --silent"
+          --health-interval 10s
+          --health-timeout 180s
+          --health-retries 10
     name: A job to test itself
     steps:
       - name: Checkout
@@ -16,3 +26,19 @@ jobs:
         continue-on-error: true
         with:
           path: './test/test1.sql'
+      - name: Test Sql-lint action with sql detect error
+        uses: ./
+        with:
+          path: './test/test.sql'
+          use_database: true
+          host: 'localhost'
+          user: 'root'
+          password: ''
+      - name: Test Sql-lint action with sql detect error
+        uses: ./
+        with:
+          path: './test/testi1.sql'
+          use_database: true
+          host: 'localhost'
+          user: 'root'
+          ignore_errors: 'missing-where'

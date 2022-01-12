@@ -16,7 +16,7 @@ inputs:
   user: 
     description: 'The user of sql database'
     required: false
-    default: ''
+    default: 'root'
   password: 
     description: 'The password of sql database'
     required: false
