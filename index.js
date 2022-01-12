@@ -58,7 +58,7 @@ try {
 	const port = core.getInput('port',{required:false})
 	const ignore_errors = core.getInput('ignore_errors',{required:false}).split(',').filter((x)=>(x!=''))
 	initconfig(host,user,password,driver,port,ignore_errors)
-	const runbash = get_runbash(path,use_database)
+	const runbash = get_runbash(path,host=='')
 	exec(runbash, (err, stdout, stderr) => {
 		if (err) {
 			core.setFailed(err.message);
