@@ -16,7 +16,7 @@ sudo ln -s /usr/local/bin/sql-lint /usr/bin/sql-lint`
 
 function initconfig(host,user,password,driver='mysql',port=3306,ignore_errors=[]){
 		config_data = {'host':host,'user':user,'password':password,'driver':driver,'port':port,'ignore_errors':ignore_errors}
-		writeFileSync('/tmp/config.json',JSON.stringify(config_data),{flag: 'wx',overwrite:true})
+		writeFileSync('/tmp/config.json',JSON.stringify(config_data),{flag: 'w',overwrite:true})
 }
 
 try {
@@ -36,7 +36,7 @@ try {
 		});
 	}
 	const use_database = core.getBooleanInput('use_database', { required: false})
-	if (use_database === true){
+	if (use_database == true){
 		const host = core.getInput('host', { required: false})
 		const user = core.getInput('user',{required: false})
 		const password = core.getInput('password',{required:false})
