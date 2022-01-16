@@ -3,6 +3,18 @@ on: [push]
 jobs:
   hello_world_job:
     runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:5.7
+        ports:
+          - 3306:3306
+        env:
+          MYSQL_ROOT_PASSWORD: password
+        options: >-
+          --health-cmd "mysqladmin ping --silent"
+          --health-interval 10s
+          --health-timeout 180s
+          --health-retries 10
     name: A job to test itself
     steps:
       - name: Checkout
@@ -16,3 +28,16 @@ jobs:
         continue-on-error: true
         with:
           path: './test/test1.sql'
+      - name: Test Sql-lint action with sql detect error
+        uses: ./
+        continue-on-error: true
+        with:
+          path: './test/test.sql'
+          host: 'localhost'
+          password: 'password'
+          user: 'root'
+            #      - name: Test Sql-lint action with sql detect error
+            #        uses: ./
+            #        with:
+            #          path: './test/test1.sql'
+            #          ignore_errors: 'missing-where'
