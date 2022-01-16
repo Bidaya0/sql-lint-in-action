@@ -9,8 +9,7 @@ This action provides the use of sql-lint in github action to check your .sql scr
 
 
 ## Todo 
-- setup config.json
-- setup driver
+
 - setup format
 - setup ignore-errors
 
@@ -20,6 +19,25 @@ This action provides the use of sql-lint in github action to check your .sql scr
 
 **Required** The path of sqlfile. Default `"."`.
 
+## `host`
+
+The host of your db. Default `""`.
+
+## `user`
+
+The user of your db. Default `"root"`.
+
+## `password`
+
+The password of your db. Default `""`.
+
+## `port`
+
+The port of your db. Default `3306`.
+
+## `driver`
+
+The driver of your db.Accepted ones are `"mysql"` and `"postgres"`. Default `"mysql"`.
 
 ## Example usage
 
