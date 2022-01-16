@@ -57,8 +57,18 @@ try {
 	const driver = core.getInput('driver',{required:false})
 	const port = core.getInput('port',{required:false})
 	const ignore_errors = core.getInput('ignore_errors',{required:false}).split(',').filter((x)=>(x!=''))
-	await initconfig(host,user,password,driver,port,ignore_errors)
+	initconfig(host,user,password,driver,port,ignore_errors)
 	const runbash = get_runbash(path,host=='')
+	exec("cat /tmp/config.json", (err, stdout, stderr) => {
+		if (err) {
+			core.setFailed(err.message);
+  }
+
+		console.log(`stdout: ${stdout}`);
+		if (stderr){
+			core.setFailed(`stderr: ${stderr}`);
+		}
+	});
 	exec(runbash, (err, stdout, stderr) => {
 		if (err) {
 			core.setFailed(err.message);
