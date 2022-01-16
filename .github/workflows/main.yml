@@ -36,8 +36,8 @@ jobs:
           host: 'localhost'
           password: 'password'
           user: 'root'
-      - name: Test Sql-lint action with sql detect error
-        uses: ./
-        with:
-          path: './test/test1.sql'
-          ignore_errors: 'missing-where'
+            #      - name: Test Sql-lint action with sql detect error
+            #        uses: ./
+            #        with:
+            #          path: './test/test1.sql'
+            #          ignore_errors: 'missing-where'
